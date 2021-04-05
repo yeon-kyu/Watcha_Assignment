@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">WatchaAssignment</string>
+    <string name="app_name">Watcha Assignment</string>
 
     <string name="track_list">track list</string>
     <string name="favorite_track_list">favorites</string>
+    <string name="watcha_assignment">왓챠 과제</string>
+    <string name="watcha_logo_img">watcha logo image</string>
 </resources>
