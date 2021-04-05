@@ -6,6 +6,6 @@ import retrofit2.Response
 
 class SplashRepository(private val searchService:ITunesSearchService) : BaseRepository(){
 
-    suspend fun searchTrack(): TrackResponse =
-        apiRequest { searchService.searchTrack() }
+    suspend fun searchTrack(term:String, entity:String): TrackResponse =
+        apiRequest { searchService.searchTrack(term,entity) }
 }

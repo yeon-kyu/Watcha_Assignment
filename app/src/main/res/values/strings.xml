@@ -2,5 +2,5 @@
     <string name="app_name">WatchaAssignment</string>
 
     <string name="track_list">track list</string>
-    <string name="favorite_track">favorite track</string>
+    <string name="favorite_track_list">favorites</string>
 </resources>
