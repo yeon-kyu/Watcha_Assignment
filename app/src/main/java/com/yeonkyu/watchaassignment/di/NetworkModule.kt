@@ -1,5 +1,6 @@
 package com.yeonkyu.watchaassignment.di
 
+import com.yeonkyu.watchaassignment.data.api.ITunesSearchService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.BuildConfig
@@ -33,7 +34,11 @@ val networkModule: Module = module {
             .client(okHttpClient)
             .build()
 
+    fun provideSplashService(retrofit: Retrofit): ITunesSearchService =
+        retrofit.create(ITunesSearchService::class.java)
+
     single { provideOkHttpClient() }
     single { provideRetrofit(get()) }
+    single { provideSplashService(get()) }
 
 }

@@ -20,6 +20,7 @@ class SplashActivity : AppCompatActivity(), SplashListener {
         setupView()
         setupViewModel()
 
+        mViewModel.initiate()
     }
 
     private fun setupView(){

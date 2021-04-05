@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/track_screen"
+        android:icon="@drawable/outline_home_24"
+        android:title="@string/track_list"/>
+
+    <item
+        android:id="@+id/favorite_track_screen"
+        android:icon="@drawable/outline_account_circle_24"
+        android:title="@string/favorite_track"/>
+</menu>
