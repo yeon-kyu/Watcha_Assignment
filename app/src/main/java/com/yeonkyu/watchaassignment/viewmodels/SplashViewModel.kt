@@ -28,15 +28,15 @@ class SplashViewModel(private val repository: SplashRepository) : ViewModel() {
             CoroutineScope(Dispatchers.IO).launch {
                 delay(2000)
 
-                val term = "greenday"
-                val entity = "song"
-                try {
-                    val response = repository.searchTrack(term, entity)
-                    Log.e("CHECK_TAG", response.resultCount.toString())
-                    Log.e("CHECK_TAG", response.results[0].trackName)
-                } catch (e: Exception) {
-                    Log.e("ERROR_TAG", "searchTrack error : $e")
-                }
+//                val term = "greenday"
+//                val entity = "song"
+//                try {
+//                    val response = repository.searchTrack(term, entity)
+//                    Log.e("CHECK_TAG", response.resultCount.toString())
+//                    Log.e("CHECK_TAG", response.results[0].trackName)
+//                } catch (e: Exception) {
+//                    Log.e("ERROR_TAG", "searchTrack error : $e")
+//                }
 
                 splashListener?.onSplashFinish()
                 isSplashing = false

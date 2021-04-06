@@ -4,5 +4,11 @@
     <string name="track_list">track list</string>
     <string name="favorite_track_list">favorites</string>
     <string name="watcha_assignment">왓챠 과제</string>
+
+    <!-- splash -->
     <string name="watcha_logo_img">watcha logo image</string>
+
+    <!-- track_list -->
+    <string name="track_list_img">track list image</string>
+    <string name="track_list_star_icon">track list star image</string>
 </resources>
