@@ -24,6 +24,12 @@ class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackVi
         starClickListener = listener
     }
 
+    fun setTrackList(list: ArrayList<TrackResult>){
+        trackList.clear()
+        trackList.addAll(list)
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val view = LayoutInflater.from(mContext).inflate(R.layout.item_track_list,parent,false)
         return TrackViewHolder(view)
@@ -53,12 +59,16 @@ class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackVi
         private val trackNameText = itemView.findViewById<TextView>(R.id.track_list_track_name_text)
         private val collectionNameText = itemView.findViewById<TextView>(R.id.track_list_collection_name_text)
         private val artistNameText = itemView.findViewById<TextView>(R.id.track_list_artist_name_text)
-        private val starImage = itemView.findViewById<ImageButton>(R.id.track_list_star_button)
+        private val starButton = itemView.findViewById<ImageButton>(R.id.track_list_star_button)
 
         fun onBind(track: TrackResult){
             trackNameText.text = track.trackName
             collectionNameText.text = track.collectionName
             artistNameText.text = track.artistName
+
+            starButton.setOnClickListener {
+                starClickListener?.onClick(track)
+            }
 
         }
     }

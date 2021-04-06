@@ -46,6 +46,12 @@ class TrackListFragment: Fragment() {
     }
 
     private fun setupViewModel(){
+        mTrackViewModel.liveTrackList.observe(mBinding.lifecycleOwner!!,{
+            Log.e("CHECK_TAG","track list 변화")
+            trackAdapter.setTrackList(it)
+        })
+
+        mTrackViewModel.searchTrack()
 
     }
 
