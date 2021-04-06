@@ -16,7 +16,6 @@ class GlideUtil {
                 .load(url)
                 .placeholder(R.drawable.img_placeholder)
                 .into(imageView)
-
         }
     }
 }

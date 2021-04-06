@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.adapter.TrackAdapter
+import com.yeonkyu.watchaassignment.data.entities.TrackResult
 import com.yeonkyu.watchaassignment.databinding.FragmentFavoriteTrackListBinding
 import com.yeonkyu.watchaassignment.viewmodels.FavoritesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,10 +43,20 @@ class FavoriteTrackListFragment : Fragment() {
 
     private fun setupViewModel(){
 
-        mFavoriteViewModel.liveFavoriteTrackList.observe(mBinding.lifecycleOwner!!,{
-            for(track in it){
-                //trackAdapter.addLast(track)
+        mFavoriteViewModel.liveFavoriteTrackList.observe(mBinding.lifecycleOwner!!, {
+            trackAdapter.removeAll() //화면 회전 등과 같은 상황에서 중첩 방지
+            for (favorite in it) {
+                val track: TrackResult = TrackResult(
+                    favorite.trackId,
+                    favorite.trackName,
+                    favorite.collectionName,
+                    favorite.artistName,
+                    favorite.imgUrl,
+                    true
+                )
+                trackAdapter.addLast(track)
             }
+            trackAdapter.notifyDataSetChanged()
         })
 
         mFavoriteViewModel.getFavoriteTrackList()

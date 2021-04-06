@@ -45,7 +45,6 @@ class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackVi
 
     fun addLast(track:TrackResult){
         trackList.add(track)
-        notifyDataSetChanged()
     }
 
     fun removeAll(){

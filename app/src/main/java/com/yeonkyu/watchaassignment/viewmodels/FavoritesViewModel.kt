@@ -15,6 +15,7 @@ class FavoritesViewModel(private val mRoomDB: FavoritesDao) : ViewModel() {
         MutableLiveData<List<Favorites>>()
     }
 
+
     fun getFavoriteTrackList(){
         CoroutineScope(Dispatchers.Default).launch {
             val favoritesList : List<Favorites> = mRoomDB.getAll()
