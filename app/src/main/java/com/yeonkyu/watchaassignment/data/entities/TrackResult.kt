@@ -3,6 +3,8 @@ package com.yeonkyu.watchaassignment.data.entities
 import com.google.gson.annotations.SerializedName
 
 data class TrackResult(
+    @SerializedName(value = "trackId")
+    val trackId: Int,
     @SerializedName(value = "trackName")
     val trackName: String,
     @SerializedName(value = "collectionName")
