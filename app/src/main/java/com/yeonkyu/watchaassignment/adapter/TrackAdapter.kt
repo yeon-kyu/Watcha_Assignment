@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
+import com.yeonkyu.watchaassignment.utils.GlideUtil
 
 class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
     private val mContext = context
@@ -69,6 +70,7 @@ class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackVi
             starButton.setOnClickListener {
                 starClickListener?.onClick(track)
             }
+            GlideUtil.displayImageFromUrl(mContext,track.ImageUrl,trackImage)
 
         }
     }
