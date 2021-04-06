@@ -20,6 +20,7 @@ import com.yeonkyu.watchaassignment.databinding.FragmentTrackListBinding
 import com.yeonkyu.watchaassignment.viewmodels.TrackViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -51,19 +52,12 @@ class TrackListFragment: Fragment(), TrackListListener {
 
         trackAdapter = TrackAdapter(requireContext())
         trackRecyclerView.adapter = trackAdapter
-
-        mBinding.trackDbGetAllBt.setOnClickListener {
-            CoroutineScope(Dispatchers.Default).launch {
-                val favorList: List<Favorites> = mRoomDB.getAll()
-                for (favor in favorList) {
-                    Log.e("CHECK_TAG", "favor list : ${favor.trackName}")
-                }
-            }
-        }
-
     }
 
     private fun setupViewModel(){
+
+        //화면 회전과 같은 reCreate 일때 adapter 내 중복 쌓임을 방지하기 위해 trackList를 clear()합니다
+        mTrackViewModel.resetTrackList()
 
         mTrackViewModel.isLoading.observe(mBinding.lifecycleOwner!!,{
             Log.e("CHECK_TAG","progressbar observed : $it")
@@ -77,7 +71,24 @@ class TrackListFragment: Fragment(), TrackListListener {
 
         mTrackViewModel.liveTrackList.observe(mBinding.lifecycleOwner!!,{
             Log.e("CHECK_TAG","track list observed")
-            trackAdapter.setTrackList(it)
+            CoroutineScope(Dispatchers.Default).launch {
+                val favoriteTrackIds = mRoomDB.getAllId()
+                for(track in it){
+                    var isFavorite = false
+                    for(favoriteTrackId in favoriteTrackIds){
+                        if(track.trackId == favoriteTrackId){
+                            isFavorite = true
+                            break
+                        }
+                    }
+                    track.isFavorite = isFavorite
+
+                    activity?.runOnUiThread {
+                        trackAdapter.addLast(track)
+                        trackAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
         })
         mTrackViewModel.setTrackListener(this)
 

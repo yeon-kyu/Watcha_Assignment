@@ -10,6 +10,9 @@ interface FavoritesDao {
     @Query("SELECT * FROM favorites")
     fun getAll(): List<Favorites>
 
+    @Query("SELECT trackId FROM favorites")
+    fun getAllId(): List<Int>
+
     @Delete
     fun delete(track: Favorites)
 }

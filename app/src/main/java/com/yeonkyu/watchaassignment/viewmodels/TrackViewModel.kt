@@ -31,6 +31,10 @@ class TrackViewModel(private val repository: TrackRepository) : ViewModel() {
         this.trackListListener = listener
     }
 
+    fun resetTrackList(){
+        trackList.clear()
+    }
+
     fun searchTrack(){
         CoroutineScope(Dispatchers.IO).launch {
             isLoading.postValue(true)

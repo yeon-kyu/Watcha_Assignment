@@ -6,19 +6,17 @@ import com.bumptech.glide.Glide
 import com.yeonkyu.watchaassignment.R
 
 class GlideUtil {
-    companion object{
-
+    companion object {
         fun displayImageFromUrl(
-                context: Context,
-                url: String,
-                imageView: ImageView
+            context: Context,
+            url: String,
+            imageView: ImageView
         ) {
             Glide.with(context)
-                    .load(url)
-                    .placeholder(R.drawable.img_placeholder)
-                    .into(imageView)
+                .load(url)
+                .placeholder(R.drawable.img_placeholder)
+                .into(imageView)
 
         }
-
     }
 }

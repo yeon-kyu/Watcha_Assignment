@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
 import com.yeonkyu.watchaassignment.utils.GlideUtil
-
 class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
     private val mContext = context
     private val trackList = ArrayList<TrackResult>()
@@ -72,6 +71,12 @@ class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackVi
             }
             GlideUtil.displayImageFromUrl(mContext,track.ImageUrl,trackImage)
 
+            if(track.isFavorite){
+                starButton.setImageResource(R.drawable.icon_star_gold_32)
+            }
+            else{
+                starButton.setImageResource(R.drawable.icon_star_white_32)
+            }
         }
     }
 }
