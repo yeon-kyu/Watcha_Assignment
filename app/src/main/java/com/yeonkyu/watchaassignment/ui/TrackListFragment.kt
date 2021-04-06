@@ -10,27 +10,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.adapter.TrackAdapter
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
 import com.yeonkyu.watchaassignment.data.listeners.TrackListListener
-import com.yeonkyu.watchaassignment.data.room_persistence.DatabaseWithRoom
 import com.yeonkyu.watchaassignment.data.room_persistence.Favorites
-import com.yeonkyu.watchaassignment.data.room_persistence.FavoritesDatabase
+import com.yeonkyu.watchaassignment.data.room_persistence.FavoritesDao
 import com.yeonkyu.watchaassignment.databinding.FragmentTrackListBinding
 import com.yeonkyu.watchaassignment.viewmodels.TrackViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrackListFragment: Fragment(), TrackListListener {
 
     private lateinit var mBinding: FragmentTrackListBinding
     private val mTrackViewModel: TrackViewModel by viewModel()
-    private val mRoomDB : DatabaseWithRoom by inject()
+    private val mRoomDB : FavoritesDao = get()
     private lateinit var trackAdapter: TrackAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,14 +54,7 @@ class TrackListFragment: Fragment(), TrackListListener {
 
         mBinding.trackDbGetAllBt.setOnClickListener {
             CoroutineScope(Dispatchers.Default).launch {
-                val db = Room.databaseBuilder(
-                    requireContext(),
-                    FavoritesDatabase::class.java,
-                    "favorites-db"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                val favorList: List<Favorites> = db.favoritesDao().getAll()
+                val favorList: List<Favorites> = mRoomDB.getAll()
                 for (favor in favorList) {
                     Log.e("CHECK_TAG", "favor list : ${favor.trackName}")
                 }
@@ -104,12 +95,8 @@ class TrackListFragment: Fragment(), TrackListListener {
                     artistName = track.artistName,
                     imgUrl = track.ImageUrl
                 )
-                //mRoomDB.invoke().favoritesDao().insertTrack(favorite)
                 CoroutineScope(Dispatchers.Default).launch {
-                    val db = Room.databaseBuilder(requireContext(), FavoritesDatabase::class.java,"favorites-db")
-                        .fallbackToDestructiveMigration()
-                        .build()
-                    db.favoritesDao().insertTrack(favorite)
+                    mRoomDB.insertTrack(favorite)
                     Log.e("CHECK_TAG", "start clicked : ${track.trackName}")
                 }
 
