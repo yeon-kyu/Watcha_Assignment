@@ -15,21 +15,14 @@ import com.yeonkyu.watchaassignment.adapter.TrackAdapter
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
 import com.yeonkyu.watchaassignment.data.listeners.TrackListListener
 import com.yeonkyu.watchaassignment.data.room_persistence.Favorites
-import com.yeonkyu.watchaassignment.data.room_persistence.FavoritesDao
 import com.yeonkyu.watchaassignment.databinding.FragmentTrackListBinding
 import com.yeonkyu.watchaassignment.viewmodels.TrackViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrackListFragment: Fragment(), TrackListListener {
 
     private lateinit var mBinding: FragmentTrackListBinding
     private val mTrackViewModel: TrackViewModel by viewModel()
-    private val mRoomDB : FavoritesDao = get()
     private lateinit var trackAdapter: TrackAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,7 +53,6 @@ class TrackListFragment: Fragment(), TrackListListener {
         mTrackViewModel.resetTrackList()
 
         mTrackViewModel.isLoading.observe(mBinding.lifecycleOwner!!,{
-            Log.e("CHECK_TAG","progressbar observed : $it")
             if(it){
                 mBinding.trackListProgressbar.visibility = View.VISIBLE
             }
@@ -70,30 +62,12 @@ class TrackListFragment: Fragment(), TrackListListener {
         })
 
         mTrackViewModel.liveTrackList.observe(mBinding.lifecycleOwner!!,{
-            Log.e("CHECK_TAG","track list observed")
-            CoroutineScope(Dispatchers.Default).launch {
-                val favoriteTrackIds = mRoomDB.getAllId()
-                for(track in it){
-                    var isFavorite = false
-                    for(favoriteTrackId in favoriteTrackIds){
-                        if(track.trackId == favoriteTrackId){
-                            isFavorite = true
-                            break
-                        }
-                    }
-                    track.isFavorite = isFavorite
-
-                    activity?.runOnUiThread {
-                        trackAdapter.addLast(track)
-                        trackAdapter.notifyDataSetChanged()
-                    }
-                }
-            }
+            Log.e("CHECK_TAG","track list change observed")
+            trackAdapter.setTrackList(it)
         })
+
         mTrackViewModel.setTrackListener(this)
-
         mTrackViewModel.searchTrack()
-
     }
 
     private fun setTrackStarClickListener(){
@@ -106,11 +80,13 @@ class TrackListFragment: Fragment(), TrackListListener {
                     artistName = track.artistName,
                     imgUrl = track.ImageUrl
                 )
-                CoroutineScope(Dispatchers.Default).launch {
-                    mRoomDB.insertTrack(favorite)
-                    Log.e("CHECK_TAG", "start clicked : ${track.trackName}")
-                }
 
+                if(track.isFavorite){ //이미 favoriteTrack에 있을 경우 -> room에서 삭제
+                    mTrackViewModel.deleteFavorite(favorite)
+                }
+                else{ //favoriteTrack에 없을 때 -> room에 추가
+                    mTrackViewModel.insertFavorite(favorite)
+                }
             }
         })
     }
@@ -120,5 +96,4 @@ class TrackListFragment: Fragment(), TrackListListener {
             Toast.makeText(activity,msg,Toast.LENGTH_LONG).show()
         }
     }
-
 }

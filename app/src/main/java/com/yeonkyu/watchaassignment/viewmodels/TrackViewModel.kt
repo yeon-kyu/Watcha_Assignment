@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
 import com.yeonkyu.watchaassignment.data.listeners.TrackListListener
 import com.yeonkyu.watchaassignment.data.repository.TrackRepository
+import com.yeonkyu.watchaassignment.data.room_persistence.Favorites
+import com.yeonkyu.watchaassignment.data.room_persistence.FavoritesDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TrackViewModel(private val repository: TrackRepository) : ViewModel() {
+class TrackViewModel(private val repository: TrackRepository, private val roomDB: FavoritesDao) : ViewModel() {
 
     private var trackListListener: TrackListListener? = null
 
@@ -38,14 +40,26 @@ class TrackViewModel(private val repository: TrackRepository) : ViewModel() {
     fun searchTrack(){
         CoroutineScope(Dispatchers.IO).launch {
             isLoading.postValue(true)
+
+            val favoriteTrackIds : List<Int> = roomDB.getAllId()
+
             val term = "greenday"
             val entity = "song"
             try {
                 val response = repository.searchTrack(term, entity)
-                Log.e("CHECK_TAG", response.resultCount.toString())
-                Log.e("CHECK_TAG", response.results[0].trackName)
 
-                trackList.addAll(response.results)
+                for(track in response.results){
+                    var isFavorite = false
+                    for(favoriteTrackId in favoriteTrackIds){//현재 track이 favorite이면 노란 별 체크
+                        if(track.trackId==favoriteTrackId){
+                            isFavorite = true
+                            break;
+                        }
+                    }
+                    track.isFavorite = isFavorite
+                    trackList.add(track)
+                }
+                //trackList.addAll(response.results)
                 liveTrackList.postValue(trackList)
 
             } catch (e: Exception) {
@@ -56,7 +70,20 @@ class TrackViewModel(private val repository: TrackRepository) : ViewModel() {
                 isLoading.postValue(false)
             }
         }
+    }
 
+    fun deleteFavorite(favorite: Favorites){
+        CoroutineScope(Dispatchers.Default).launch {
+            roomDB.delete(favorite)
+            Log.e("CHECK_TAG", "start clicked : ${favorite.trackName} 삭제")
+        }
+    }
+
+    fun insertFavorite(favorite: Favorites){
+        CoroutineScope(Dispatchers.Default).launch {
+            roomDB.insertTrack(favorite)
+            Log.e("CHECK_TAG", "start clicked : ${favorite.trackName} 추가")
+        }
     }
 
 }

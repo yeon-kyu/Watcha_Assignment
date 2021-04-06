@@ -68,6 +68,13 @@ class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackVi
 
             starButton.setOnClickListener {
                 starClickListener?.onClick(track)
+                track.isFavorite = !track.isFavorite
+                if(track.isFavorite){
+                    starButton.setImageResource(R.drawable.icon_star_gold_32)
+                }
+                else{
+                    starButton.setImageResource(R.drawable.icon_star_white_32)
+                }
             }
             GlideUtil.displayImageFromUrl(mContext,track.ImageUrl,trackImage)
 
