@@ -29,11 +29,10 @@ class SplashActivity : AppCompatActivity(), SplashListener {
     }
 
     override fun onSplashFinish() {
-        //onSplashFinish 를 호출하는 코드가 Dispatcher.IO 코루틴 내부에 있기 때문에
+        //onSplashFinish 를 호출하는 코드가 메인 외의 스레드에 있기 때문에
         //메인 스레드에서 호출될 수 있도록 액티비티  생성 코드를 runOnUiThread 내부에 넣었습니다
         runOnUiThread {
             val intent = Intent(this,MainActivity::class.java)
-            //MainActivity가 기존에 존재할때 기존 Activity를 가져오는 flag를 두었습니다
             intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(intent)
             finish()

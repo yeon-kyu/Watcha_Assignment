@@ -35,6 +35,7 @@ class FavoriteTrackListFragment : Fragment() {
         return mBinding.root
     }
 
+    //viwe 초기화
     private fun setupView(){
         val favoriteTrackRecyclerView: RecyclerView = mBinding.favoriteTrackListRecyclerview
         val linearLayoutManager = LinearLayoutManager(context)
@@ -44,6 +45,7 @@ class FavoriteTrackListFragment : Fragment() {
         favoriteTrackRecyclerView.adapter = trackAdapter
     }
 
+    //viewModel 초기화
     private fun setupViewModel(){
         mFavoriteViewModel.liveFavoriteTrackList.observe(mBinding.lifecycleOwner!!, {
             trackAdapter.removeAll() //화면 회전 등과 같은 상황에서 중첩 방지
@@ -70,6 +72,7 @@ class FavoriteTrackListFragment : Fragment() {
         })
     }
 
+    //recyclerview 내의 Star를 클릭했을때 앱 내 DB 수정
     private fun setTrackStarClickListener(){
         trackAdapter.setStarClickListener(object : TrackAdapter.OnStartClickListener {
             override fun onClick(track: TrackResult) {

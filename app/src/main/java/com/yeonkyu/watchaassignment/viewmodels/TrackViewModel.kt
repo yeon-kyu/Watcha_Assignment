@@ -28,17 +28,19 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
             postValue(false)
         }
     }
-    var isSearching = false
+    var isSearching = false //searchNextTrack 중복 호출을 방지하는 변수
 
     fun setTrackListener(listener:TrackListListener){
         this.trackListListener = listener
     }
 
+    //trackList에 대한 데이터를 초기화 시키는 메소드
     fun resetTrackList(){
         pagingOffset = 0
         trackList.clear()
     }
 
+    //현재 offset으로부터 limit개의 track list를 가져오는 api호출 메소드
     fun searchNextTrack(){
         if(isSearching){
             return
@@ -80,6 +82,7 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
         }
     }
 
+    // DB에서 해당 track을 favorites에서 삭제
     fun deleteFavorite(favorite: Favorites){
         CoroutineScope(Dispatchers.Default).launch {
             roomDB.delete(favorite)
@@ -87,6 +90,7 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
         }
     }
 
+    //DB에서 해당 track을 favorites에 추가
     fun insertFavorite(favorite: Favorites){
         CoroutineScope(Dispatchers.Default).launch {
             roomDB.insertTrack(favorite)

@@ -16,5 +16,4 @@
         android:name="com.yeonkyu.watchaassignment.ui.FavoriteTrackListFragment"
         android:label="Favorite Track Screen"
         tools:layout="@layout/fragment_favorite_track_list"/>
-
 </navigation>

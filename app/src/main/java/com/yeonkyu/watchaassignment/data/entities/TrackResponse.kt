@@ -7,6 +7,4 @@ data class TrackResponse(
     val resultCount: Int,
     @SerializedName(value = "results")
     val results: ArrayList<TrackResult>
-
-
 )

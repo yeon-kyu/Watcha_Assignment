@@ -16,6 +16,7 @@ class FavoritesViewModel(private val roomDB: FavoritesDao) : ViewModel() {
         MutableLiveData<List<Favorites>>()
     }
 
+    //DB에서 모든 favorite
     fun getFavoriteTrackList(){
         CoroutineScope(Dispatchers.Default).launch {
             val favoritesList : List<Favorites> = roomDB.getAll()
@@ -23,6 +24,7 @@ class FavoritesViewModel(private val roomDB: FavoritesDao) : ViewModel() {
         }
     }
 
+    // DB에서 해당 track을 favorites에서 삭제
     fun deleteFavorite(favorite: Favorites){
         CoroutineScope(Dispatchers.Default).launch {
             roomDB.delete(favorite)
@@ -30,6 +32,7 @@ class FavoritesViewModel(private val roomDB: FavoritesDao) : ViewModel() {
         }
     }
 
+    //DB에서 해당 track을 favorites에 추가
     fun insertFavorite(favorite: Favorites){
         CoroutineScope(Dispatchers.Default).launch {
             roomDB.insertTrack(favorite)

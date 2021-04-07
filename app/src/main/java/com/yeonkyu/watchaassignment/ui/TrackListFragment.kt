@@ -40,7 +40,7 @@ class TrackListFragment: Fragment(), TrackListListener {
         return mBinding.root
     }
 
-    private fun setupView(){
+    private fun setupView(){ //view초기화
         val trackRecyclerView: RecyclerView = mBinding.trackListRecyclerview
         val linearLayoutManager = LinearLayoutManager(context)
         trackRecyclerView.layoutManager = linearLayoutManager
@@ -57,8 +57,7 @@ class TrackListFragment: Fragment(), TrackListListener {
         })
     }
 
-    private fun setupViewModel(){
-
+    private fun setupViewModel(){ //viewmModel 초기화
         //화면 회전과 같은 reCreate 일때 adapter 내 중복 쌓임을 방지하기 위해 trackList를 clear()합니다
         mTrackViewModel.resetTrackList()
 
@@ -79,6 +78,7 @@ class TrackListFragment: Fragment(), TrackListListener {
         mTrackViewModel.setTrackListener(this)
     }
 
+    //recyclerview 내의 Star를 클릭했을때 앱 내 DB 수정
     private fun setTrackStarClickListener(){
         trackAdapter.setStarClickListener(object : TrackAdapter.OnStartClickListener {
             override fun onClick(track: TrackResult) {
