@@ -20,11 +20,11 @@
 
 ### Screen shot
 <p align="center">
-<img width = "200" src="/previews/watcha-simul.gif"/>
+<img width = "500" src="/previews/watcha-simul.gif"/>
 </p>
 
 
 ## MAD Score card
 <p align="center">
-<img width = "200" src="/previews/MAD_score_card.jpg"/>
+<img height = "1200" src="/previews/MAD_score_card.jpg"/>
 </p>
