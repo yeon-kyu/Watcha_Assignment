@@ -9,14 +9,17 @@
 - Koin 을 이용한 Dependency Injection
 
 ### Open source libraries
-- retrofit2 & OkHttp3 & GSON : REST API 통신
-- Glide : image loading
+- retrofit2, OkHttp3, GSON : REST API 통신
+- Glide : 이미지 로딩
 
 ### AAC libraries
  - ViewModel
  - DataBinding
  - LiveData
  - Room Persistence
+
+### Screen shot
+
 
 ## MAD Score card
 <p align="center">
