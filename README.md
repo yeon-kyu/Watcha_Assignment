@@ -18,11 +18,14 @@
  - LiveData
  - Room Persistence
 
+### Other libraries
+ - RecyclerView
+ - Navigation
+
 ### Screen shot
 <p align="left">
 <img width = "400" src="/previews/watcha-simul.gif"/>
 </p>
-
 
 ## MAD Score card
 <p align="center">
