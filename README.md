@@ -7,3 +7,8 @@
 ## 제약사항
 - Target API 29
 - Minimum API 19
+
+## MAD Score card
+<p align="center">
+<img src="/previews/MAD_score_card.jpg"/>
+</p>
