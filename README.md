@@ -5,13 +5,9 @@
 - Target API **29**
 - Minimum API **19**
 
-</br>
-
 ###  🏗 Architecture
 - `MVVM Architecture`
 - `Koin` 을 이용한 `Dependency Injection`
-
-</br>
 
 ### 📂 Open Source Libraries
 - #####  REST API 통신
@@ -20,28 +16,20 @@
 - #####  이미지 로딩
   - `Glide`
 
-</br>
-
 ### 🗂 AAC Libraries
  - `ViewModel`
  - `DataBinding`
  - `LiveData`
  - `Room Persistence`
 
-</br>
-
 ###  🗄 Other Libraries
  - `RecyclerView`
  - `Navigation`
-
-</br>
 
 ### 📷 Screenshot
 <p align="left">
 <img width = "400" src="/previews/watcha-simul.gif"/>
 </p>
-
-</br>
 
 ### 📚 MAD Score Card
 
