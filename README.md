@@ -1,6 +1,6 @@
-# 📍 Watcha Assignment
+# Watcha Assignment
 
-### 💡 제약사항
+### 제약사항
 
 - Target API **29**
 - Minimum API **19**
@@ -36,14 +36,14 @@
 
 ##### </br>
 
-### 📷 Screenshot
+### Screenshot
 <p align="left">
 <img width = "400" src="/previews/watcha-simul.gif"/>
 </p>
 
 ##### </br>
 
-### 📚 MAD Score Card
+### MAD Score Card
 
 <p align="center">
 <img height = "1200" src="/previews/MAD_score_card.jpg"/>
