@@ -5,7 +5,7 @@
 - Target API **29**
 - Minimum API **19**
 
-##### 
+##### </br>
 
 ### Architecture
 - `MVVM Architecture`
