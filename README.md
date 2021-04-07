@@ -19,8 +19,8 @@
  - Room Persistence
 
 ### Screen shot
-<p align="center">
-<img width = "500" src="/previews/watcha-simul.gif"/>
+<p align="left">
+<img width = "400" src="/previews/watcha-simul.gif"/>
 </p>
 
 
