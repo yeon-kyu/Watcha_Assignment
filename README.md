@@ -13,8 +13,6 @@
 - [📚 MAD Score Card](#MAD-Score-Card)
 </br>
 
-----
-
 </br>
 
 ### 💡 제약사항
@@ -23,7 +21,6 @@
 - Minimum API **19**
 
 </br>
-----
 
 </br>
 
@@ -31,7 +28,6 @@
 - `MVVM Architecture`
 - `Koin` 을 이용한 `Dependency Injection`
 </br>
-----
 
 </br>
 
@@ -44,8 +40,6 @@
   - `Glide`
 </br>
 
-----
-
 </br>
 
 ### 🗂 AAC Libraries
@@ -55,8 +49,6 @@
  - `Room Persistence`
 </br>
 
-----
-
 </br>
 
 ###  🗄 Other Libraries
@@ -64,8 +56,6 @@
  - `Navigation`
 
 </br>
-
------
 
 </br>
 
@@ -75,8 +65,6 @@
 </p>
 
 </br>
-
------
 
 </br>
 
