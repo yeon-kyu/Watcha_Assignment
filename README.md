@@ -20,13 +20,16 @@
 - #####  이미지 로딩
   - `Glide`
 
+- #####  의존성 주입
+  - `Koin`
+
 ##### </br>
 
 ### AAC Libraries
  - `ViewModel`
  - `DataBinding`
  - `LiveData`
- - `Room Persistence`
+ - `Room`
 
 ##### </br>
 
