@@ -5,9 +5,13 @@
 - Target API **29**
 - Minimum API **19**
 
+##### 
+
 ### Architecture
 - `MVVM Architecture`
 - `Koin` 을 이용한 `Dependency Injection`
+
+##### 
 
 ### Open Source Libraries
 - #####  REST API 통신
