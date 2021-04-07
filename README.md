@@ -2,18 +2,6 @@
 
 </br>
 
-### 📝 목차
-
-- [💡 제약사항](#제약사항)
-- [🏗 Architecture](#Architecture)
-- [📂 Open Source Libraries](#Open-Source-Libraries)
-- [🗂 AAC libraries](#AAC-Libraries)
-- [🗄 Other Libraries](#Other-Libraries)
-- [📷 Screenshot](#Screenshot)
-- [📚 MAD Score Card](#MAD-Score-Card)
-
-</br>
-
 ### 💡 제약사항
 
 - Target API **29**
