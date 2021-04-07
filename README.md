@@ -5,13 +5,13 @@
 - Target API **29**
 - Minimum API **19**
 
-###### </br>
+##### </br>
 
 ### Architecture
 - `MVVM Architecture`
 - `Koin` 을 이용한 `Dependency Injection`
 
-### </br>
+##### </br>
 
 ### Open Source Libraries
 - #####  REST API 통신
@@ -41,7 +41,7 @@
 <img width = "400" src="/previews/watcha-simul.gif"/>
 </p>
 
-###### </br>
+##### </br>
 
 ### 📚 MAD Score Card
 
