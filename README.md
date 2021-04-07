@@ -12,7 +12,10 @@
 - retrofit2 & OkHttp3 & GSON : REST API 통신
 - Glide : image loading
 
-### Database
+### AAC libraries
+ - ViewModel
+ - DataBinding
+ - LiveData
  - Room Persistence
 
 ## MAD Score card
