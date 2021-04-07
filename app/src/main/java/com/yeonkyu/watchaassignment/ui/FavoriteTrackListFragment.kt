@@ -60,6 +60,13 @@ class FavoriteTrackListFragment : Fragment() {
                 trackAdapter.addLast(track)
             }
             trackAdapter.notifyDataSetChanged()
+
+            if(it.isEmpty()){
+                mBinding.favoriteTrackListGuideText.visibility = View.VISIBLE
+            }
+            else{
+                mBinding.favoriteTrackListGuideText.visibility = View.GONE
+            }
         })
     }
 

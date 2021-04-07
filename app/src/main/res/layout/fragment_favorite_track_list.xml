@@ -19,5 +19,22 @@
             android:scrollbars="vertical"
             android:clipToPadding="false"
             android:overScrollMode="never"/>
+
+        <TextView
+            android:id="@+id/favorite_track_list_guide_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal"
+            android:text="@string/favorite_track_list_guide"
+            android:textColor="@color/gray"
+            android:textSize="16sp"
+            android:fontFamily="@font/notosanskr_regular"
+            android:visibility="visible"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

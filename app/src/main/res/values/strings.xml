@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Watcha Assignment</string>
 
+    <!--  common  -->
     <string name="track_list">track list</string>
     <string name="favorite_track_list">favorites</string>
     <string name="watcha_assignment">왓챠 과제</string>
@@ -11,4 +12,7 @@
     <!-- track_list -->
     <string name="track_list_img">track list image</string>
     <string name="track_list_star_icon">track list star image</string>
+
+    <!-- favorite_track_list -->
+    <string name="favorite_track_list_guide">Favorite Track에 아무것도 없습니다.\n Track List화면에서 \n 좋아하는 Track을 선택해주세요!</string>
 </resources>
