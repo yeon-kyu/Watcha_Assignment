@@ -19,6 +19,9 @@
  - Room Persistence
 
 ### Screen shot
+<p align="center">
+<img src="/previews/watcha-simul.gif"/>
+</p>
 
 
 ## MAD Score card
