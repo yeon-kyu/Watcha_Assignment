@@ -1,7 +1,5 @@
 # 📍 Watcha Assignment
 
-</br>
-
 ### 💡 제약사항
 
 - Target API **29**
@@ -18,8 +16,6 @@
 ### 📂 Open Source Libraries
 - #####  REST API 통신
   - `retrofit2`, `OkHttp3` ,`GSON` 
-
-</br>
 
 - #####  이미지 로딩
   - `Glide`
