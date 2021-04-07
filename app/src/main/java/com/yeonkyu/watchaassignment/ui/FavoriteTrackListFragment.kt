@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.adapter.TrackAdapter
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
+import com.yeonkyu.watchaassignment.data.room_persistence.Favorites
 import com.yeonkyu.watchaassignment.databinding.FragmentFavoriteTrackListBinding
 import com.yeonkyu.watchaassignment.viewmodels.FavoritesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,6 +29,7 @@ class FavoriteTrackListFragment : Fragment() {
 
         setupView()
         setupViewModel()
+        setTrackStarClickListener()
 
         mFavoriteViewModel.getFavoriteTrackList()
         return mBinding.root
@@ -58,6 +60,27 @@ class FavoriteTrackListFragment : Fragment() {
                 trackAdapter.addLast(track)
             }
             trackAdapter.notifyDataSetChanged()
+        })
+    }
+
+    private fun setTrackStarClickListener(){
+        trackAdapter.setStarClickListener(object : TrackAdapter.OnStartClickListener {
+            override fun onClick(track: TrackResult) {
+                val favorite: Favorites = Favorites(
+                        track.trackId,
+                        trackName = track.trackName,
+                        collectionName = track.collectionName,
+                        artistName = track.artistName,
+                        imgUrl = track.ImageUrl
+                )
+
+                if(track.isFavorite){ //이미 favoriteTrack에 있을 경우 -> room에서 삭제
+                    mFavoriteViewModel.deleteFavorite(favorite)
+                }
+                else{ //favoriteTrack에 없을 때 -> room에 추가
+                    mFavoriteViewModel.insertFavorite(favorite)
+                }
+            }
         })
     }
 
