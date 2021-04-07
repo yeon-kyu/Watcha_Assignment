@@ -32,7 +32,7 @@
             android:gravity="center_horizontal"
             android:text="@string/favorite_track_list_guide"
             android:textColor="@color/gray"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:fontFamily="@font/notosanskr_regular"
             android:visibility="visible"/>
 

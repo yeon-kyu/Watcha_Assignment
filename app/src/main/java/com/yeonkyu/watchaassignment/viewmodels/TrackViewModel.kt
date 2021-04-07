@@ -16,8 +16,8 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
 
     private var trackListListener: TrackListListener? = null
 
-    val pagingLimit : Int = 20
-    var currentPage : Int = 0
+    private val pagingLimit : Int = 20
+    private var pagingOffset : Int = 0
 
     private val trackList = ArrayList<TrackResult>()
     val liveTrackList: MutableLiveData<ArrayList<TrackResult>> by lazy{
@@ -28,25 +28,32 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
             postValue(false)
         }
     }
+    var isSearching = false
 
     fun setTrackListener(listener:TrackListListener){
         this.trackListListener = listener
     }
 
     fun resetTrackList(){
+        pagingOffset = 0
         trackList.clear()
     }
 
-    fun searchTrack(){
+    fun searchNextTrack(){
+        if(isSearching){
+            return
+        }
         CoroutineScope(Dispatchers.IO).launch {
             isLoading.postValue(true)
+            isSearching = true
 
             val favoriteTrackIds : List<Int> = roomDB.getAllId()
 
             val term = "greenday"
             val entity = "song"
             try {
-                val response = repository.searchTrack(term, entity)
+                val response = repository.searchTrack(term, entity, pagingLimit, pagingOffset)
+                Log.e("CHECK_TAG","response size : ${response.resultCount}")
 
                 for(track in response.results){
                     var isFavorite = false
@@ -59,8 +66,8 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
                     track.isFavorite = isFavorite
                     trackList.add(track)
                 }
-                //trackList.addAll(response.results)
                 liveTrackList.postValue(trackList)
+                pagingOffset += pagingLimit
 
             } catch (e: Exception) {
                 Log.e("ERROR_TAG", "searchTrack error : $e")
@@ -68,6 +75,7 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
             }
             finally {
                 isLoading.postValue(false)
+                isSearching = false
             }
         }
     }

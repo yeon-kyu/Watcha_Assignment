@@ -35,6 +35,8 @@ class TrackListFragment: Fragment(), TrackListListener {
         setupViewModel()
         setTrackStarClickListener()
 
+        mTrackViewModel.searchNextTrack()
+
         return mBinding.root
     }
 
@@ -45,6 +47,14 @@ class TrackListFragment: Fragment(), TrackListListener {
 
         trackAdapter = TrackAdapter(requireContext())
         trackRecyclerView.adapter = trackAdapter
+
+        mBinding.trackListRecyclerview.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if(linearLayoutManager.findLastVisibleItemPosition()==trackAdapter.itemCount-1){
+                    mTrackViewModel.searchNextTrack()
+                }
+            }
+        })
     }
 
     private fun setupViewModel(){
@@ -67,7 +77,6 @@ class TrackListFragment: Fragment(), TrackListListener {
         })
 
         mTrackViewModel.setTrackListener(this)
-        mTrackViewModel.searchTrack()
     }
 
     private fun setTrackStarClickListener(){

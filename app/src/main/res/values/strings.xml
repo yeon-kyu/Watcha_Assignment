@@ -14,5 +14,5 @@
     <string name="track_list_star_icon">track list star image</string>
 
     <!-- favorite_track_list -->
-    <string name="favorite_track_list_guide">Favorite Track에 아무것도 없습니다.\n Track List화면에서 \n 좋아하는 Track을 선택해주세요!</string>
+    <string name="favorite_track_list_guide">Favorite Track에 아무것도 없습니다.\n Track List 화면에서 \n 좋아하는 Track을 선택해주세요!</string>
 </resources>
