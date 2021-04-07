@@ -29,6 +29,7 @@ class FavoriteTrackListFragment : Fragment() {
         setupView()
         setupViewModel()
 
+        mFavoriteViewModel.getFavoriteTrackList()
         return mBinding.root
     }
 
@@ -42,9 +43,9 @@ class FavoriteTrackListFragment : Fragment() {
     }
 
     private fun setupViewModel(){
-
         mFavoriteViewModel.liveFavoriteTrackList.observe(mBinding.lifecycleOwner!!, {
             trackAdapter.removeAll() //화면 회전 등과 같은 상황에서 중첩 방지
+
             for (favorite in it) {
                 val track: TrackResult = TrackResult(
                     favorite.trackId,
@@ -58,8 +59,6 @@ class FavoriteTrackListFragment : Fragment() {
             }
             trackAdapter.notifyDataSetChanged()
         })
-
-        mFavoriteViewModel.getFavoriteTrackList()
     }
 
 }
