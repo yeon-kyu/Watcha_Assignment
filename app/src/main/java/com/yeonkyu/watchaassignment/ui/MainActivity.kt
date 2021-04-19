@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(
             bottomNavigationView,
             findNavController(R.id.main_nav_host)
-        )
+        )//바텀네비게이션 클릭시마다 새로 만들지 않도록 수정해야함
 
     }
 }

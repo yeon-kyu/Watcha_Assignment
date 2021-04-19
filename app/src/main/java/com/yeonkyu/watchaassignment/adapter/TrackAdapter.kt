@@ -12,7 +12,7 @@ import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
 import com.yeonkyu.watchaassignment.utils.GlideUtil
 class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
-    private val mContext = context
+    //코틀린 네이밍 컨벤션 쓰기
     private val trackList = ArrayList<TrackResult>()
     private var starClickListener: OnStartClickListener? = null
 
@@ -28,15 +28,21 @@ class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackVi
         trackList.clear()
         trackList.addAll(list)
         notifyDataSetChanged()
+
+        //notifyDataSEtchanged말고 다른 notify 함수들 잘 쓰는게 좋다
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
-        val view = LayoutInflater.from(mContext).inflate(R.layout.item_track_list,parent,false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_track_list,parent,false)
         return TrackViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         holder.onBind(trackList[position])
+        if(position==trackList.size){
+
+        }
     }
 
     override fun getItemCount(): Int {
@@ -75,7 +81,7 @@ class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackVi
                     starButton.setImageResource(R.drawable.icon_star_white_32)
                 }
             }
-            GlideUtil.displayImageFromUrl(mContext,track.ImageUrl,trackImage)
+            GlideUtil.displayImageFromUrl(trackImage.context,track.ImageUrl,trackImage)
 
             if(track.isFavorite){
                 starButton.setImageResource(R.drawable.icon_star_gold_32)

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.adapter.TrackAdapter
@@ -48,9 +49,9 @@ class TrackListFragment: Fragment(), TrackListListener {
         trackAdapter = TrackAdapter(requireContext())
         trackRecyclerView.adapter = trackAdapter
 
-        mBinding.trackListRecyclerview.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        trackRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if(linearLayoutManager.findLastVisibleItemPosition()==trackAdapter.itemCount-1){
+                if(linearLayoutManager.findLastVisibleItemPosition()==trackAdapter.itemCount-1){//2개나 3개 전에 미리하기도 합니다
                     mTrackViewModel.searchNextTrack()
                 }
             }
@@ -74,6 +75,9 @@ class TrackListFragment: Fragment(), TrackListListener {
             Log.e("CHECK_TAG","track list change observed")
             trackAdapter.setTrackList(it)
         })
+        // ListAdapter 알아보기
+        //submitList 사용 - 라사이클러뷰가 비교
+        //paged list adapter 가 페이징도 해준다.
 
         mTrackViewModel.setTrackListener(this)
     }
