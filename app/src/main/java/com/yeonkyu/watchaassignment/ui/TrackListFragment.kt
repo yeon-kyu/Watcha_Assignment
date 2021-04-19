@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.adapter.TrackAdapter
@@ -22,27 +21,27 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrackListFragment: Fragment(), TrackListListener {
 
-    private lateinit var mBinding: FragmentTrackListBinding
-    private val mTrackViewModel: TrackViewModel by viewModel()
+    private lateinit var binding: FragmentTrackListBinding
+    private val trackViewModel: TrackViewModel by viewModel()
     private lateinit var trackAdapter: TrackAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_track_list, container, false)
-        mBinding.lifecycleOwner = activity
-        mBinding.viewModel = mTrackViewModel
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_track_list, container, false)
+        binding.lifecycleOwner = activity
+        binding.viewModel = trackViewModel
 
         setupView()
         setupViewModel()
         setTrackStarClickListener()
 
-        mTrackViewModel.searchNextTrack()
+        trackViewModel.searchNextTrack()
 
-        return mBinding.root
+        return binding.root
     }
 
     private fun setupView(){ //view초기화
-        val trackRecyclerView: RecyclerView = mBinding.trackListRecyclerview
+        val trackRecyclerView: RecyclerView = binding.trackListRecyclerview
         val linearLayoutManager = LinearLayoutManager(context)
         trackRecyclerView.layoutManager = linearLayoutManager
 
@@ -52,7 +51,7 @@ class TrackListFragment: Fragment(), TrackListListener {
         trackRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if(linearLayoutManager.findLastVisibleItemPosition()==trackAdapter.itemCount-1){//2개나 3개 전에 미리하기도 합니다
-                    mTrackViewModel.searchNextTrack()
+                    trackViewModel.searchNextTrack()
                 }
             }
         })
@@ -60,18 +59,18 @@ class TrackListFragment: Fragment(), TrackListListener {
 
     private fun setupViewModel(){ //viewmModel 초기화
         //화면 회전과 같은 reCreate 일때 adapter 내 중복 쌓임을 방지하기 위해 trackList를 clear()합니다
-        mTrackViewModel.resetTrackList()
+        trackViewModel.resetTrackList()
 
-        mTrackViewModel.isLoading.observe(mBinding.lifecycleOwner!!,{
+        trackViewModel.isLoading.observe(binding.lifecycleOwner!!,{
             if(it){
-                mBinding.trackListProgressbar.visibility = View.VISIBLE
+                binding.trackListProgressbar.visibility = View.VISIBLE
             }
             else{
-                mBinding.trackListProgressbar.visibility = View.INVISIBLE
+                binding.trackListProgressbar.visibility = View.INVISIBLE
             }
         })
 
-        mTrackViewModel.liveTrackList.observe(mBinding.lifecycleOwner!!,{
+        trackViewModel.liveTrackList.observe(binding.lifecycleOwner!!,{
             Log.e("CHECK_TAG","track list change observed")
             trackAdapter.setTrackList(it)
         })
@@ -79,7 +78,7 @@ class TrackListFragment: Fragment(), TrackListListener {
         //submitList 사용 - 라사이클러뷰가 비교
         //paged list adapter 가 페이징도 해준다.
 
-        mTrackViewModel.setTrackListener(this)
+        trackViewModel.setTrackListener(this)
     }
 
     //recyclerview 내의 Star를 클릭했을때 앱 내 DB 수정
@@ -95,10 +94,10 @@ class TrackListFragment: Fragment(), TrackListListener {
                 )
 
                 if(track.isFavorite){ //이미 favoriteTrack에 있을 경우 -> room에서 삭제
-                    mTrackViewModel.deleteFavorite(favorite)
+                    trackViewModel.deleteFavorite(favorite)
                 }
                 else{ //favoriteTrack에 없을 때 -> room에 추가
-                    mTrackViewModel.insertFavorite(favorite)
+                    trackViewModel.insertFavorite(favorite)
                 }
             }
         })

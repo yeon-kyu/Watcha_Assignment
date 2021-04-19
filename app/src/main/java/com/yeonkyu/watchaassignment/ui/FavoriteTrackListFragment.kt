@@ -18,26 +18,26 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteTrackListFragment : Fragment() {
 
-    private lateinit var mBinding: FragmentFavoriteTrackListBinding
-    private val mFavoriteViewModel : FavoritesViewModel by viewModel()
+    private lateinit var binding: FragmentFavoriteTrackListBinding
+    private val favoriteViewModel : FavoritesViewModel by viewModel()
     private lateinit var trackAdapter: TrackAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_favorite_track_list, container, false)
-        mBinding.lifecycleOwner = activity
-        mBinding.viewModel = mFavoriteViewModel
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_favorite_track_list, container, false)
+        binding.lifecycleOwner = activity
+        binding.viewModel = favoriteViewModel
 
         setupView()
         setupViewModel()
         setTrackStarClickListener()
 
-        mFavoriteViewModel.getFavoriteTrackList()
-        return mBinding.root
+        favoriteViewModel.getFavoriteTrackList()
+        return binding.root
     }
 
     //viwe 초기화
     private fun setupView(){
-        val favoriteTrackRecyclerView: RecyclerView = mBinding.favoriteTrackListRecyclerview
+        val favoriteTrackRecyclerView: RecyclerView = binding.favoriteTrackListRecyclerview
         val linearLayoutManager = LinearLayoutManager(context)
         favoriteTrackRecyclerView.layoutManager = linearLayoutManager
 
@@ -47,7 +47,7 @@ class FavoriteTrackListFragment : Fragment() {
 
     //viewModel 초기화
     private fun setupViewModel(){
-        mFavoriteViewModel.liveFavoriteTrackList.observe(mBinding.lifecycleOwner!!, {
+        favoriteViewModel.liveFavoriteTrackList.observe(binding.lifecycleOwner!!, {
             trackAdapter.removeAll() //화면 회전 등과 같은 상황에서 중첩 방지
 
             for (favorite in it) {
@@ -64,10 +64,10 @@ class FavoriteTrackListFragment : Fragment() {
             trackAdapter.notifyDataSetChanged()
 
             if(it.isEmpty()){
-                mBinding.favoriteTrackListGuideText.visibility = View.VISIBLE
+                binding.favoriteTrackListGuideText.visibility = View.VISIBLE
             }
             else{
-                mBinding.favoriteTrackListGuideText.visibility = View.GONE
+                binding.favoriteTrackListGuideText.visibility = View.GONE
             }
         })
     }
@@ -85,10 +85,10 @@ class FavoriteTrackListFragment : Fragment() {
                 )
 
                 if(track.isFavorite){ //이미 favoriteTrack에 있을 경우 -> room에서 삭제
-                    mFavoriteViewModel.deleteFavorite(favorite)
+                    favoriteViewModel.deleteFavorite(favorite)
                 }
                 else{ //favoriteTrack에 없을 때 -> room에 추가
-                    mFavoriteViewModel.insertFavorite(favorite)
+                    favoriteViewModel.insertFavorite(favorite)
                 }
             }
         })
