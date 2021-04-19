@@ -45,16 +45,14 @@ class TrackListFragment: Fragment(), TrackListListener {
         val linearLayoutManager = LinearLayoutManager(context)
         trackRecyclerView.layoutManager = linearLayoutManager
 
-        trackAdapter = TrackAdapter(requireContext())
-        trackRecyclerView.adapter = trackAdapter
-
-        trackRecyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                if(linearLayoutManager.findLastVisibleItemPosition()==trackAdapter.itemCount-1){//2개나 3개 전에 미리하기도 합니다
-                    trackViewModel.searchNextTrack()
-                }
+        trackAdapter = TrackAdapter()
+        trackAdapter.setTouchEndScroll(object: TrackAdapter.OnTouchEndScrollListener{
+            override fun onTouchEndScroll() {
+                trackViewModel.searchNextTrack()
             }
         })
+
+        trackRecyclerView.adapter = trackAdapter
     }
 
     private fun setupViewModel(){ //viewmModel 초기화

@@ -11,26 +11,33 @@ import androidx.recyclerview.widget.RecyclerView
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
 import com.yeonkyu.watchaassignment.utils.GlideUtil
-class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
+class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
     //코틀린 네이밍 컨벤션 쓰기
     private val trackList = ArrayList<TrackResult>()
     private var starClickListener: OnStartClickListener? = null
+    private var touchEndScrollListener: OnTouchEndScrollListener? = null
 
     interface OnStartClickListener{
         fun onClick(track: TrackResult)
+    }
+
+    interface OnTouchEndScrollListener{
+        fun onTouchEndScroll()
     }
 
     fun setStarClickListener(listener: OnStartClickListener){
         starClickListener = listener
     }
 
+    fun setTouchEndScroll(listener: OnTouchEndScrollListener){
+        touchEndScrollListener = listener
+    }
+
     fun setTrackList(list: ArrayList<TrackResult>){
         trackList.clear()
         trackList.addAll(list)
         notifyDataSetChanged()
-
-        //notifyDataSEtchanged말고 다른 notify 함수들 잘 쓰는게 좋다
-
+        //notifyDataSetChanged말고 다른 notify 함수들 잘 쓰는게 좋다
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
@@ -40,8 +47,9 @@ class TrackAdapter(context: Context) : RecyclerView.Adapter<TrackAdapter.TrackVi
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         holder.onBind(trackList[position])
-        if(position==trackList.size){
 
+        if(trackList.size - position <= 1){
+            touchEndScrollListener?.onTouchEndScroll()
         }
     }
 

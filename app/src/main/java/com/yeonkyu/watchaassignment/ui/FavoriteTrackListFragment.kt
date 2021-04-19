@@ -41,7 +41,7 @@ class FavoriteTrackListFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(context)
         favoriteTrackRecyclerView.layoutManager = linearLayoutManager
 
-        trackAdapter = TrackAdapter(requireContext())
+        trackAdapter = TrackAdapter()
         favoriteTrackRecyclerView.adapter = trackAdapter
     }
 
