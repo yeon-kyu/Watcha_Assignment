@@ -12,7 +12,7 @@ class SplashViewModel : ViewModel() {
     val isSplashing: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
-    
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             delay(2000)

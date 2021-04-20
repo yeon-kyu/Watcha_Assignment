@@ -1,82 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:background="@color/dark_gray"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/track_list_img"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="20dp"
-        android:contentDescription="@string/track_list_img" />
+    <data>
+        <variable
+            name="trackItem"
+            type="com.yeonkyu.watchaassignment.data.entities.TrackResult" />
 
-    <TextView
-        android:id="@+id/track_list_track_name_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent="0.6"
-        app:layout_constraintTop_toTopOf="@+id/track_list_img"
-        app:layout_constraintBottom_toTopOf="@id/track_list_collection_name_text"
-        app:layout_constraintStart_toEndOf="@+id/track_list_img"
-        android:layout_marginStart="20dp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:text="trackName"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/notosanskr_medium"/>
+    </data>
 
-    <TextView
-        android:id="@+id/track_list_collection_name_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent="0.6"
-        app:layout_constraintTop_toBottomOf="@+id/track_list_track_name_text"
-        app:layout_constraintBottom_toTopOf="@+id/track_list_artist_name_text"
-        app:layout_constraintStart_toEndOf="@+id/track_list_img"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="20dp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:text="collectionName"
-        android:textSize="14sp"
-        android:textColor="@color/gray"
-        android:fontFamily="@font/notosanskr_regular"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/dark_gray">
 
-    <TextView
-        android:id="@+id/track_list_artist_name_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintWidth_percent="0.6"
-        app:layout_constraintTop_toBottomOf="@+id/track_list_collection_name_text"
-        app:layout_constraintBottom_toBottomOf="@id/track_list_img"
-        app:layout_constraintStart_toEndOf="@+id/track_list_img"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="20dp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:text="artistName"
-        android:textSize="12sp"
-        android:textColor="@color/gray"
-        android:fontFamily="@font/notosanskr_regular"/>
+        <ImageView
+            android:id="@+id/track_list_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:trackImage="@{trackItem.imageUrl}"
+            android:layout_marginStart="20dp"
+            android:contentDescription="@string/track_list_img" />
 
-    <ImageButton
-        android:id="@+id/track_list_star_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/icon_star_white_32"
-        android:background="@color/transparent"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:contentDescription="@string/track_list_star_icon" />
+        <TextView
+            android:id="@+id/track_list_track_name_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.6"
+            app:layout_constraintTop_toTopOf="@+id/track_list_img"
+            app:layout_constraintBottom_toTopOf="@id/track_list_collection_name_text"
+            app:layout_constraintStart_toEndOf="@+id/track_list_img"
+            android:layout_marginStart="20dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{trackItem.trackName}"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/notosanskr_medium" />
+
+        <TextView
+            android:id="@+id/track_list_collection_name_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.6"
+            app:layout_constraintTop_toBottomOf="@+id/track_list_track_name_text"
+            app:layout_constraintBottom_toTopOf="@+id/track_list_artist_name_text"
+            app:layout_constraintStart_toEndOf="@+id/track_list_img"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{trackItem.collectionName}"
+            android:textSize="14sp"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/notosanskr_regular" />
+
+        <TextView
+            android:id="@+id/track_list_artist_name_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintWidth_percent="0.6"
+            app:layout_constraintTop_toBottomOf="@+id/track_list_collection_name_text"
+            app:layout_constraintBottom_toBottomOf="@id/track_list_img"
+            app:layout_constraintStart_toEndOf="@+id/track_list_img"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{trackItem.artistName}"
+            android:textSize="12sp"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/notosanskr_regular" />
+
+        <ImageButton
+            android:id="@+id/track_list_star_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/icon_star_white_32"
+            android:background="@color/transparent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/track_list_star_icon" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

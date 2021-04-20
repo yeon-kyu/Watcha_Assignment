@@ -9,7 +9,11 @@
         android:id="@+id/track_screen"
         android:name="com.yeonkyu.watchaassignment.ui.TrackListFragment"
         android:label="Track Screen"
-        tools:layout="@layout/fragment_track_list"/>
+        tools:layout="@layout/fragment_track_list">
+        <action
+            android:id="@+id/action_track_screen_to_favorite_track_screen"
+            app:destination="@id/favorite_track_screen" />
+    </fragment>
 
     <fragment
         android:id="@+id/favorite_track_screen"

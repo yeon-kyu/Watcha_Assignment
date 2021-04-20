@@ -1,16 +1,24 @@
 package com.yeonkyu.watchaassignment.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
+import androidx.databinding.BindingAdapter
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
-import com.yeonkyu.watchaassignment.utils.GlideUtil
+import com.yeonkyu.watchaassignment.databinding.ItemTrackListBinding
+
+@BindingAdapter("trackImage")
+fun loadTrackImage(view: ImageView, imageUrl: String){
+    Glide.with(view.context)
+            .load(imageUrl)
+            .placeholder(R.drawable.img_placeholder)
+            .into(view)
+}
+
 class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
     //코틀린 네이밍 컨벤션 쓰기
     private val trackList = ArrayList<TrackResult>()
@@ -41,14 +49,14 @@ class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_track_list,parent,false)
-        return TrackViewHolder(view)
+        val binding:ItemTrackListBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context),R.layout.item_track_list,parent,false)
+        return TrackViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         holder.onBind(trackList[position])
 
-        if(trackList.size - position <= 1){
+        if(trackList.size - position == 1){
             touchEndScrollListener?.onTouchEndScroll()
         }
     }
@@ -66,37 +74,29 @@ class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
         notifyDataSetChanged()
     }
 
-    inner class TrackViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-
-        private val trackImage = itemView.findViewById<ImageView>(R.id.track_list_img)
-        private val trackNameText = itemView.findViewById<TextView>(R.id.track_list_track_name_text)
-        private val collectionNameText = itemView.findViewById<TextView>(R.id.track_list_collection_name_text)
-        private val artistNameText = itemView.findViewById<TextView>(R.id.track_list_artist_name_text)
-        private val starButton = itemView.findViewById<ImageButton>(R.id.track_list_star_button)
+    inner class TrackViewHolder(private val binding: ItemTrackListBinding): RecyclerView.ViewHolder(binding.root){
 
         fun onBind(track: TrackResult){
-            trackNameText.text = track.trackName
-            collectionNameText.text = track.collectionName
-            artistNameText.text = track.artistName
+            binding.trackItem = track
 
-            starButton.setOnClickListener {
+            binding.trackListStarButton.setOnClickListener {
                 starClickListener?.onClick(track)
                 track.isFavorite = !track.isFavorite
                 if(track.isFavorite){
-                    starButton.setImageResource(R.drawable.icon_star_gold_32)
+                    binding.trackListStarButton.setImageResource(R.drawable.icon_star_gold_32)
                 }
                 else{
-                    starButton.setImageResource(R.drawable.icon_star_white_32)
+                    binding.trackListStarButton.setImageResource(R.drawable.icon_star_white_32)
                 }
             }
-            GlideUtil.displayImageFromUrl(trackImage.context,track.ImageUrl,trackImage)
 
             if(track.isFavorite){
-                starButton.setImageResource(R.drawable.icon_star_gold_32)
+                binding.trackListStarButton.setImageResource(R.drawable.icon_star_gold_32)
             }
             else{
-                starButton.setImageResource(R.drawable.icon_star_white_32)
+                binding.trackListStarButton.setImageResource(R.drawable.icon_star_white_32)
             }
+            binding.executePendingBindings()
         }
     }
 }
