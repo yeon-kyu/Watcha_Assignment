@@ -59,15 +59,6 @@ class TrackListFragment: Fragment(), TrackListListener {
         //화면 회전과 같은 reCreate 일때 adapter 내 중복 쌓임을 방지하기 위해 trackList를 clear()합니다
         trackViewModel.resetTrackList()
 
-        trackViewModel.isLoading.observe(binding.lifecycleOwner!!,{
-            if(it){
-                binding.trackListProgressbar.visibility = View.VISIBLE
-            }
-            else{
-                binding.trackListProgressbar.visibility = View.INVISIBLE
-            }
-        })
-
         trackViewModel.liveTrackList.observe(binding.lifecycleOwner!!,{
             Log.e("CHECK_TAG","track list change observed")
             trackAdapter.setTrackList(it)

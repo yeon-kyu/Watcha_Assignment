@@ -2,22 +2,11 @@ package com.yeonkyu.watchaassignment.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
 import com.yeonkyu.watchaassignment.databinding.ItemTrackListBinding
-
-@BindingAdapter("trackImage")
-fun loadTrackImage(view: ImageView, imageUrl: String){
-    Glide.with(view.context)
-            .load(imageUrl)
-            .placeholder(R.drawable.img_placeholder)
-            .into(view)
-}
 
 class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
     //코틀린 네이밍 컨벤션 쓰기

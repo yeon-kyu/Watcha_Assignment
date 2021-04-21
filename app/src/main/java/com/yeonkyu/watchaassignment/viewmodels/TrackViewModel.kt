@@ -1,6 +1,8 @@
 package com.yeonkyu.watchaassignment.viewmodels
 
 import android.util.Log
+import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +11,6 @@ import com.yeonkyu.watchaassignment.data.listeners.TrackListListener
 import com.yeonkyu.watchaassignment.data.repository.TrackRepository
 import com.yeonkyu.watchaassignment.data.room_persistence.Favorites
 import com.yeonkyu.watchaassignment.data.room_persistence.FavoritesDao
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -29,7 +30,6 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
             postValue(false)
         }
     }
-    var isSearching = false //searchNextTrack 중복 호출을 방지하는 변수
 
     fun setTrackListener(listener:TrackListListener){
         this.trackListListener = listener
@@ -43,12 +43,8 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
 
     //현재 offset으로부터 limit개의 track list를 가져오는 api호출 메소드
     fun searchNextTrack(){
-        if(isSearching){
-            return
-        }
         viewModelScope.launch(Dispatchers.IO) {
             isLoading.postValue(true)
-            isSearching = true
 
             val favoriteTrackIds : List<Int> = roomDB.getAllId()
 
@@ -78,7 +74,6 @@ class TrackViewModel(private val repository: TrackRepository, private val roomDB
             }
             finally {
                 isLoading.postValue(false)
-                isSearching = false
             }
         }
     }

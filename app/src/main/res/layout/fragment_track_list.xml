@@ -30,6 +30,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="40dp"
             android:visibility="invisible"
+            app:visibleIf="@{viewModel.isLoading}"
             android:indeterminate="true"
             android:theme="@style/progressbar_style"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
