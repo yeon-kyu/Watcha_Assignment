@@ -15,7 +15,7 @@ class ApplicationClass : Application() {
         super.onCreate()
 
         startKoin {
-            androidLogger()
+            androidLogger(org.koin.core.logger.Level.ERROR)
             androidContext(this@ApplicationClass)
             modules(
                 viewModelModule,
