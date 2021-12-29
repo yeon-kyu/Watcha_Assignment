@@ -10,7 +10,7 @@ import com.yeonkyu.watchaassignment.databinding.ItemTrackListBinding
 
 class TrackAdapter : RecyclerView.Adapter<TrackAdapter.TrackViewHolder>(){
     //코틀린 네이밍 컨벤션 쓰기
-    private val trackList = ArrayList<TrackResult>()
+    val trackList = ArrayList<TrackResult>()
     private var starClickListener: OnStartClickListener? = null
     private var touchEndScrollListener: OnTouchEndScrollListener? = null
 

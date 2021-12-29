@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.yeonkyu.HoldableSwipeHelper.HoldableSwipeHelper
+import com.yeonkyu.HoldableSwipeHelper.SwipeButtonAction
 import com.yeonkyu.watchaassignment.R
 import com.yeonkyu.watchaassignment.adapter.TrackAdapter
 import com.yeonkyu.watchaassignment.data.entities.TrackResult
@@ -53,6 +57,26 @@ class TrackListFragment: Fragment(), TrackListListener {
         })
 
         trackRecyclerView.adapter = trackAdapter
+
+        val swipeHelper = HoldableSwipeHelper(requireContext(), object : SwipeButtonAction {
+            override fun onClickFirstButton(absoluteAdapterPosition: Int) {
+                Toast.makeText(
+                    requireContext(),
+                    "${trackAdapter.trackList[absoluteAdapterPosition].trackName} clicked",
+                    Toast.LENGTH_SHORT).show()
+            }
+        })
+        swipeHelper.apply {
+            setBackgroundColor("#333333")
+            setFirstItemDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_check)!!)
+            setFirstItemSideMarginDp(50)
+        }
+
+        swipeHelper.addRecyclerViewListener(trackRecyclerView)
+        swipeHelper.addRecyclerViewDecoration(trackRecyclerView)
+
+        val itemTouchHelper = ItemTouchHelper(swipeHelper)
+        itemTouchHelper.attachToRecyclerView(trackRecyclerView)
     }
 
     private fun setupViewModel(){ //viewmModel 초기화
