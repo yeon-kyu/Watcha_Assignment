@@ -67,6 +67,7 @@ class TrackListFragment: Fragment(), TrackListListener {
             }
         })
         swipeHelper.apply {
+            setDismissBackgroundOnClickedFirstItem(false)
             setBackgroundColor("#333333")
             setFirstItemDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.ic_check)!!)
             setFirstItemSideMarginDp(50)
